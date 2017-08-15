@@ -5,7 +5,7 @@ with open("readme.rst", "r") as file:
 
 setup(
     name="pipurge",
-    version="0.1.1",
+    version="0.1.2",
     url="",
     license="MIT",
     author="Patrick Dill",
@@ -16,6 +16,7 @@ setup(
     include_package_data=True,
     platforms="any",
     install_requires=["delegator.py", "Click", "colorama"],
+    download_url="http://github.com/reshanie/pipurge/archive/master.tar.gz",
     classifiers=[
         # As from https://pypi.python.org/pypi?%3Aaction=list_classifiers
         # "Development Status :: 1 - Planning",
