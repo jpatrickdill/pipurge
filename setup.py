@@ -5,13 +5,13 @@ with open("readme.rst", "r") as file:
 
 setup(
     name="pipurge",
-    version="0.1.2",
+    version="0.1.3",
     url="",
     license="MIT",
     author="Patrick Dill",
     author_email="jamespatrickdill@gmail.com",
     description="Uninstall every package. all of them.// now",
-    scripts=["pipurge.py"],
+    scripts=["pipurge.py", "readme.rst"],
     long_description=__doc__,
     include_package_data=True,
     platforms="any",
