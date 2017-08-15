@@ -32,6 +32,8 @@ DONT_UNINSTALL = [
     "delegator.py", "pexpect", "ptyprocess",
     "colorama",
     "pipenv",  # pipenv is holy
+    "virtaulenv",
+    "virtualenv-clone"
 ]
 
 
@@ -70,4 +72,4 @@ def purge(ask):
 
         ran = delegator.run(cmd)
 
-        click.secho(ran.out, fg="blue")
+        click.secho(ran.out, fg="red")

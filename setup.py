@@ -4,6 +4,8 @@ PiPurge
 
 PiPurge is a tool to uninstall all packages installed, whether system level or virtualenv
 
+``$ pip install pipurge``
+
 ``$ pipurge --help``
 """
 
@@ -12,7 +14,7 @@ from setuptools import setup
 
 setup(
     name="pipurge",
-    version="0.1.6",
+    version="0.1.7",
     url="",
     license="MIT",
     author="Patrick Dill",
