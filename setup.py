@@ -1,18 +1,24 @@
+"""
+PiPurge
+=======
+
+PiPurge is a tool to uninstall all packages installed, whether system level or virtualenv
+
+``$ pipurge --help``
+"""
+
 from setuptools import setup
 
-with open("readme.rst", "r") as file:
-    __doc__ = file.read()
 
 setup(
     name="pipurge",
-    version="0.1.4",
+    version="0.1.5",
     url="",
     license="MIT",
     author="Patrick Dill",
     author_email="jamespatrickdill@gmail.com",
     description="Uninstall every package. all of them.// now",
-    py_modules=["pipurge"],
-    scripts=["readme.rst"],
+    py_modules=["pipurge.py"],
     long_description=__doc__,
     include_package_data=True,
     platforms="any",
