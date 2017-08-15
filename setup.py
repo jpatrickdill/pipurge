@@ -12,15 +12,15 @@ from setuptools import setup
 
 setup(
     name="pipurge",
-    version="0.1.5",
+    version="0.1.6",
     url="",
     license="MIT",
     author="Patrick Dill",
     author_email="jamespatrickdill@gmail.com",
     description="Uninstall every package. all of them.// now",
-    py_modules=["pipurge.py"],
     long_description=__doc__,
     include_package_data=True,
+    packages=["pipurge"],
     platforms="any",
     install_requires=["delegator.py", "Click", "colorama"],
     download_url="http://github.com/reshanie/pipurge/archive/master.tar.gz",

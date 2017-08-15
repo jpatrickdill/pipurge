@@ -71,7 +71,3 @@ def purge(ask):
         ran = delegator.run(cmd)
 
         click.secho(ran.out, fg="blue")
-
-
-if __name__ == "__main__":
-    purge()
