@@ -25,7 +25,66 @@ import sys
 import click
 import delegator
 
-from dependencies import dependency_list
+def _dependencies(pkg):
+    # returns direct dependencies of package
+
+    pkg_info = delegator.run(["pip", "show", pkg], block=True).out
+
+    requirements = requires.search(pkg_info)
+
+    if requirements is None:
+        return {pkg: {}}
+
+    return requirements.group(1).split(", ")
+
+
+def dependency_tree(pkg, out=None):
+    # returns dependency tree for package
+    # ex:
+    #     {
+    #         "req_a": [
+    #             {"sub_a": {}},
+    #             {"sub_b": {
+    #                 "sub_sub_a": {}
+    #             }
+    #         ],
+    #         "req_b": {}
+    #     }
+
+    if out:
+        out("Finding dependencies for {} ...".format(pkg))
+
+    requirements = _dependencies(pkg)
+
+    tree = {}
+
+    for req in requirements:
+        if req == pkg:
+            continue
+
+        tree[req] = dependency_tree(req, out=out)
+
+    return tree
+
+
+def dependency_list(pkg, out=None):
+    # returns list of recursive dependencies for package
+
+    tree = dependency_tree(pkg, out=out)
+
+    def prct(d):
+        lst = []
+
+        for k in d.keys():
+            lst.append(k)
+
+            for i in prct(d[k]):
+                lst.append(i)
+
+        return lst
+
+    return prct(tree) + [pkg]
+
 
 
 def is_venv():
