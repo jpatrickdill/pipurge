@@ -25,6 +25,8 @@ import sys
 import click
 import delegator
 
+from dependencies import dependency_list
+
 
 def is_venv():
     return (hasattr(sys, 'real_prefix') or
@@ -45,7 +47,8 @@ DONT_UNINSTALL = [
 
 @click.command()
 @click.option("--ask", "-a", is_flag=True, default=False, help="Asks if each individual package should be uninstalled.")
-def purge(ask):
+@click.option("--keep", "-k", type=str, help="Comma delimited list of packages to keep installed.")
+def purge(ask, keep):
     """Uninstalls all packages installed with pip."""
 
     # show warning if not in virtualenv
@@ -56,11 +59,19 @@ def purge(ask):
 
     frozen = delegator.run("pip freeze").out
 
-    # ignore packages in DONT_IGNORE
+    to_keep = DONT_UNINSTALL
+
+    if keep:
+        for pkg in keep.split(","):
+            requirements = dependency_list(pkg, out=click.echo)
+
+            to_keep = to_keep + requirements
+
+    # ignore packages in DONT_UNINSTALL
     packages = []
     for package in frozen.split():
         p = package.split("==")[0].lower()
-        if p not in DONT_UNINSTALL:
+        if p not in to_keep:
             packages.append(p)
 
     if not click.confirm(
