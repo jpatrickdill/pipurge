@@ -1,3 +1,6 @@
 /.idea/
 /dist/
+/build/
 /pipurge.egg-info/
+/venv/
+*.pyc
