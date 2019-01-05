@@ -77,7 +77,7 @@ from setuptools import setup
 
 setup(
     name="pipurge",
-    version="0.2.0",
+    version="0.2.1",
     url="http://github.com/jpatrickdill/pipurge",
     license="MIT",
     author="Patrick Dill",
