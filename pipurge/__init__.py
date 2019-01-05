@@ -25,6 +25,12 @@ import sys
 import click
 import delegator
 
+
+def is_venv():
+    return (hasattr(sys, 'real_prefix') or
+            (hasattr(sys, 'base_prefix') and sys.base_prefix != sys.prefix))
+
+
 # necessary for pipurge
 DONT_UNINSTALL = [
     "pipurge",
@@ -43,7 +49,7 @@ def purge(ask):
     """Uninstalls all packages installed with pip."""
 
     # show warning if not in virtualenv
-    if not hasattr(sys, "real_prefix"):
+    if not is_venv():
         if not click.confirm(click.style("There is no active virtualenv, meaning this will uninstall all system level"
                                          " packages. Proceed?", fg="red")):
             sys.exit(1)
@@ -73,3 +79,7 @@ def purge(ask):
         ran = delegator.run(cmd)
 
         click.secho(ran.out, fg="red")
+
+
+if __name__ == "__main__":
+    purge()
