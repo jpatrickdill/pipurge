@@ -33,8 +33,8 @@ Basic usage:
 
       ...
 
-You can also use the **--keep** option to specify certain packages to keep installed.
-Pipurge will also keep the dependencies of the packages you specify so they stay working.
+You can also use the **--keep** option to specify certain packages to keep.
+Pipurge will also keep the dependencies of the packages so they stay working.
 
 If you'd like further control over the process, use the **--ask** option and Pipurge
 will ask you whether to uninstall each package that's left.
