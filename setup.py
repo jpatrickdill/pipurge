@@ -11,10 +11,9 @@ PiPurge is a tool to uninstall all packages installed, whether system level or v
 
 from setuptools import setup
 
-
 setup(
     name="pipurge",
-    version="0.1.7",
+    version="0.2.0",
     url="",
     license="MIT",
     author="Patrick Dill",
@@ -24,7 +23,7 @@ setup(
     include_package_data=True,
     packages=["pipurge"],
     platforms="any",
-    install_requires=["delegator.py", "Click", "colorama"],
+    install_requires=["delegator.py==0.1.1", "Click==7.0", "colorama==0.4.1"],
     download_url="http://github.com/reshanie/pipurge/archive/master.tar.gz",
     classifiers=[
         # As from https://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -56,8 +55,9 @@ setup(
         "Operating System :: OS Independent",
         "Topic :: System :: Systems Administration",
     ],
-    entry_points="""
-        [console_scripts]
-            pipurge=pipurge:purge
-    """
+    entry_points={
+        "console_scripts": [
+            "pipurge = pipurge:purge"
+        ]
+    }
 )
