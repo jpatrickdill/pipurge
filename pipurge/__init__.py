@@ -20,10 +20,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import re
 import sys
 
 import click
 import delegator
+
+requires = re.compile(r"Requires: (((, )?[\w\d\-._]+)+)")
+
 
 def _dependencies(pkg):
     # returns direct dependencies of package
@@ -84,7 +88,6 @@ def dependency_list(pkg, out=None):
         return lst
 
     return prct(tree) + [pkg]
-
 
 
 def is_venv():
