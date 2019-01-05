@@ -42,7 +42,7 @@ def _dependencies(pkg):
     return requirements.group(1).split(", ")
 
 
-def dependency_tree(pkg, out=None):
+def dependency_tree(pkg, out=None, ind=0):
     # returns dependency tree for package
     # ex:
     #     {
@@ -56,7 +56,7 @@ def dependency_tree(pkg, out=None):
     #     }
 
     if out:
-        out("Finding dependencies for {} ...".format(pkg))
+        out("{}Finding dependencies for {}...".format(" "*ind, pkg))
 
     requirements = _dependencies(pkg)
 
@@ -66,7 +66,7 @@ def dependency_tree(pkg, out=None):
         if req == pkg:
             continue
 
-        tree[req] = dependency_tree(req, out=out)
+        tree[req.lower()] = dependency_tree(req, out=out, ind=ind+2)
 
     return tree
 
@@ -137,21 +137,23 @@ def purge(ask, keep):
             packages.append(p)
 
     if not click.confirm(
-            "There are {} packages to uninstall. Proceed?".format(click.style(str(len(packages)), fg="yellow"))):
-        sys.exit(1)
+            "\nThere are {} packages to uninstall. Proceed?".format(click.style(str(len(packages)), fg="yellow"))):
+        click.echo("Purge cancelled.")
 
-    click.echo()
+        sys.exit(1)
 
     for p in packages:
         if ask:
-            if not click.confirm("Uninstall {} ?".format(click.style(p, fg="yellow"))):
+            if not click.confirm("\nUninstall {} ?".format(click.style(p, fg="yellow"))):
                 continue
 
         cmd = "pip uninstall {} -y".format(p)
 
         ran = delegator.run(cmd)
 
-        click.secho(ran.out, fg="red")
+        click.secho(ran.out.rstrip("\n"), fg="red")
+
+    click.secho("\nPurge complete!", fg="green")
 
 
 if __name__ == "__main__":
